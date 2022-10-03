@@ -1,8 +1,24 @@
-//Asynchronous programming
-console.log("start exe ...");
+const express = require('express');
+const path = require('path');
 
-setTimeout(()=>{
-    console.log("logic exe...");
-},2000);
+const app = express();
+const publicPath =path.join(__dirname,'public');
+// app.use(express.static(publicPath));
 
-console.log("complete exe..");
+app.get('',(_,res)=>{
+    res.sendFile(`${publicPath}/index.html`);
+});
+
+app.get('/about',(_,res)=>{
+    res.sendFile(`${publicPath}/about.html`);
+});
+
+app.get('/help',(_,res)=>{
+    res.sendFile(`${publicPath}/help.html`);
+});
+app.get('*',(_,res)=>{
+    res.sendFile(`${publicPath}/404.html`);
+});
+
+
+app.listen(5000);
